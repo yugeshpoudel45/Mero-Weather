@@ -17,12 +17,17 @@ class HelpScreenState extends State<HelpScreen> {
   bool skipValue = false;
   @override
   void initState() {
-    // Timer(const Duration(seconds: 5), () {
-    //   GoRouter.of(context).pushReplacementNamed(
-    //     MyAppRouteConstants.homePage,
-    //   );
-    // });
+    Timer(const Duration(seconds: 5), () {
+      GoRouter.of(context).pushReplacement(
+        MyAppRouteConstants.homePage,
+      );
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -74,7 +79,7 @@ class HelpScreenState extends State<HelpScreen> {
                     child: GestureDetector(
                       onTap: () {
                         skipButtonPressed(true);
-                        GoRouter.of(context).pushReplacementNamed(
+                        GoRouter.of(context).pushReplacement(
                           MyAppRouteConstants.homePage,
                         );
                       },

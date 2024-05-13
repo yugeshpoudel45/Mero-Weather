@@ -90,22 +90,13 @@ class _HomePageState extends State<HomePage> {
                                 "${state.weatherDetailsModel.location!.name}, ${state.weatherDetailsModel.location!.country!}"),
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.help),
-                              onPressed: () {
-                                GoRouter.of(context).pushReplacementNamed(
-                                  MyAppRouteConstants.helpScreen,
-                                );
-                              },
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.settings),
-                              onPressed: () {},
-                            ),
-                          ],
+                        IconButton(
+                          icon: const Icon(Icons.help),
+                          onPressed: () {
+                            GoRouter.of(context).pushReplacementNamed(
+                              MyAppRouteConstants.helpScreen,
+                            );
+                          },
                         ),
                       ],
                     ),
