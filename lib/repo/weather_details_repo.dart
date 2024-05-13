@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
-import 'package:mero_weather/models/weather_model.dart';
+import 'package:mero_weather/models/1.dart';
 
 class WeatherDetailsRepo {
   //----------------------------------Fetching Movie Details-------------------------------------
