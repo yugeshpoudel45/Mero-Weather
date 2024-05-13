@@ -16,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     getSkipValue();
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 2), () {
       skipValue
           ? GoRouter.of(context).pushReplacementNamed(
               MyAppRouteConstants.homePage,
