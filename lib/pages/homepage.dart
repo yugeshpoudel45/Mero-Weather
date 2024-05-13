@@ -1,11 +1,13 @@
 import 'dart:developer';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mero_weather/config/cached_network_image.dart';
 import 'package:mero_weather/config/convert_lat_to_address.dart';
 import 'package:mero_weather/cubit/weather_details_cubit.dart';
 import 'package:mero_weather/routes/app_route_constant.dart';
@@ -24,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   double lat = 0.0;
   double long = 0.0;
   String locationName = '';
-  String savedLocation = ''; 
+  String savedLocation = '';
 
   @override
   void initState() {
@@ -86,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Text(
-                                "${state.weatherDetailsModel.location!.name},${state.weatherDetailsModel.location!.country!}"),
+                                "${state.weatherDetailsModel.location!.name}, ${state.weatherDetailsModel.location!.country!}"),
                           ],
                         ),
                         Row(
@@ -108,9 +110,10 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ],
                     ),
+                    SizedBox(height: mySize.height / 40),
                     CupertinoSearchTextField(
                       placeholder: "Enter Location",
-                      autofocus: true,
+                      // autofocus: true,
                       controller: _searchController,
                       prefixInsets: const EdgeInsets.symmetric(
                         horizontal: 8,
@@ -140,17 +143,16 @@ class _HomePageState extends State<HomePage> {
                         child: Text(savedLocation.isEmpty ? 'Save' : 'Update'),
                       ),
                     ),
-                    Icon(
-                      Icons.cloud,
-                      size: 100,
-                      color: myColorScheme.onPrimary,
+                    AppNetworkImage(
+                      image:
+                          state.weatherDetailsModel.current!.condition!.icon!,
                     ),
                     Text(
-                      " ${state.weatherDetailsModel.current!.tempC}°",
-                      style: myTextTheme.displayLarge!.copyWith(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 96,
+                      "${state.weatherDetailsModel.current!.tempC}°C",
+                      style: TextStyle(
+                        fontSize: 64,
                         color: myColorScheme.onPrimary,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     Text(
@@ -171,7 +173,8 @@ class _HomePageState extends State<HomePage> {
                     Expanded(
                       child: ListView.builder(
                         padding: const EdgeInsets.all(4),
-                        itemCount: 6,
+                        itemCount: state
+                            .weatherDetailsModel.forecast!.forecastday!.length,
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
@@ -181,21 +184,21 @@ class _HomePageState extends State<HomePage> {
                               SizedBox(
                                 width: mySize.width / 4,
                                 child: Text(
-                                  "Wednesday",
+                                  "${state.weatherDetailsModel.forecast!.forecastday![index].date!.year}-${state.weatherDetailsModel.forecast!.forecastday![index].date!.month}-${state.weatherDetailsModel.forecast!.forecastday![index].date!.day}",
                                   style: myTextTheme.titleMedium!.copyWith(
                                     color: myColorScheme.onPrimary,
                                   ),
                                 ),
                               ),
                               SizedBox(width: mySize.width / 12),
-                              Icon(
-                                Icons.cloud,
-                                size: 32,
-                                color: myColorScheme.onPrimary,
+                              AppNetworkImage(
+                                image: state.weatherDetailsModel.forecast!
+                                    .forecastday![index].day!.condition!.icon!,
+                                height: 32,
                               ),
                               SizedBox(width: mySize.width / 12),
                               Text(
-                                "25°",
+                                "${state.weatherDetailsModel.forecast!.forecastday![index].day!.avgtempC}°C",
                                 style: myTextTheme.titleMedium!.copyWith(
                                   color: myColorScheme.onPrimary,
                                 ),

@@ -17,11 +17,11 @@ class HelpScreenState extends State<HelpScreen> {
   bool skipValue = false;
   @override
   void initState() {
-    Timer(const Duration(seconds: 5), () {
-      GoRouter.of(context).pushReplacementNamed(
-        MyAppRouteConstants.homePage,
-      );
-    });
+    // Timer(const Duration(seconds: 5), () {
+    //   GoRouter.of(context).pushReplacementNamed(
+    //     MyAppRouteConstants.homePage,
+    //   );
+    // });
     super.initState();
   }
 
