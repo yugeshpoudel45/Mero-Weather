@@ -17,16 +17,8 @@ class HelpScreenState extends State<HelpScreen> {
   bool skipValue = false;
   @override
   void initState() {
-    checkSkipValue();
-    Future.delayed(const Duration(seconds: 2), () {
-      if (skipValue) {
-        GoRouter.of(context).pushNamed(
-          MyAppRouteConstants.homePage,
-        );
-      }
-    });
     Timer(const Duration(seconds: 5), () {
-      GoRouter.of(context).pushNamed(
+      GoRouter.of(context).pushReplacementNamed(
         MyAppRouteConstants.homePage,
       );
     });
@@ -82,7 +74,7 @@ class HelpScreenState extends State<HelpScreen> {
                     child: GestureDetector(
                       onTap: () {
                         skipButtonPressed(true);
-                        GoRouter.of(context).pushNamed(
+                        GoRouter.of(context).pushReplacementNamed(
                           MyAppRouteConstants.homePage,
                         );
                       },
@@ -104,21 +96,9 @@ class HelpScreenState extends State<HelpScreen> {
     );
   }
 
-  void checkSkipValue() async {
-    bool value = await getSkipValue();
-    setState(() {
-      skipValue = value;
-    });
-  }
-
   //------------------------------------------Shared Preferences Section----------------------------------
   Future<void> skipButtonPressed(bool skipValue) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setBool("skip", skipValue);
-  }
-
-  Future<bool> getSkipValue() async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    return sp.getBool("skip") ?? false;
   }
 }

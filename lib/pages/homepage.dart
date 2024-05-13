@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
                               IconButton(
                                 icon: const Icon(Icons.help),
                                 onPressed: () {
-                                  GoRouter.of(context).pushNamed(
+                                  GoRouter.of(context).pushReplacementNamed(
                                     MyAppRouteConstants.helpScreen,
                                   );
                                 },
