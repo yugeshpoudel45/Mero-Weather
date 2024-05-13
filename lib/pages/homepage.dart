@@ -30,7 +30,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     _searchController = TextEditingController();
     _loadStoredLocation();
-    savedLocation.isEmpty ? _getCurrentLocation() : _loadWithSavedLocation();
+    Future.delayed(const Duration(seconds: 2), () {
+      savedLocation.isEmpty ? _getCurrentLocation() : _loadWithSavedLocation();
+    });
     super.initState();
   }
 

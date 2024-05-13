@@ -14,29 +14,23 @@ class HelpScreen extends StatefulWidget {
 }
 
 class HelpScreenState extends State<HelpScreen> {
+  bool skipValue = false;
   @override
   void initState() {
     checkSkipValue();
-    if (skipValue) {
+    Future.delayed(const Duration(seconds: 2), () {
+      if (skipValue) {
+        GoRouter.of(context).pushNamed(
+          MyAppRouteConstants.homePage,
+        );
+      }
+    });
+    Timer(const Duration(seconds: 5), () {
       GoRouter.of(context).pushNamed(
         MyAppRouteConstants.homePage,
       );
-    }
-    // Timer(const Duration(seconds: 5), () {
-    //   GoRouter.of(context).pushNamed(
-    //     MyAppRouteConstants.homePage,
-    //   );
-    // });
-    super.initState();
-  }
-
-  bool skipValue = false;
-
-  void checkSkipValue() async {
-    skipValue = await getSkipValue();
-    setState(() {
-      skipValue = skipValue;
     });
+    super.initState();
   }
 
   @override
@@ -108,6 +102,13 @@ class HelpScreenState extends State<HelpScreen> {
         ],
       ),
     );
+  }
+
+  void checkSkipValue() async {
+    bool value = await getSkipValue();
+    setState(() {
+      skipValue = value;
+    });
   }
 
   //------------------------------------------Shared Preferences Section----------------------------------
