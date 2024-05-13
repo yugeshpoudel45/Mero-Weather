@@ -92,10 +92,11 @@ class _HomePageState extends State<HomePage> {
                         ),
                         IconButton(
                           icon: const Icon(Icons.help),
-                          onPressed: () {
-                            GoRouter.of(context).pushReplacementNamed(
-                              MyAppRouteConstants.helpScreen,
-                            );
+                          onPressed: () async {
+                            SharedPreferences sp =
+                                await SharedPreferences.getInstance();
+                            sp.setBool("skip", false);
+                            navigateToHelpScreen();
                           },
                         ),
                       ],
@@ -256,6 +257,12 @@ class _HomePageState extends State<HomePage> {
     context.read<WeatherDetailsCubit>().onFetchWeatherDetails(
           locationName.isEmpty ? 'Bhaktapur' : locationName,
         );
+  }
+
+  void navigateToHelpScreen() {
+    GoRouter.of(context).pushReplacementNamed(
+      MyAppRouteConstants.helpScreen,
+    );
   }
 
 //-----------------------------Shared Preferences Section--------------------------------

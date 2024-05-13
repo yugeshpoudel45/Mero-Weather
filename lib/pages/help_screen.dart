@@ -14,19 +14,17 @@ class HelpScreen extends StatefulWidget {
 }
 
 class HelpScreenState extends State<HelpScreen> {
-  bool skipValue = false;
+  Timer? _timer;
+
   @override
   void initState() {
-    Timer(const Duration(seconds: 5), () {
-      GoRouter.of(context).pushReplacement(
-        MyAppRouteConstants.homePage,
-      );
-    });
+    checkSkipStatus();
     super.initState();
   }
 
   @override
   void dispose() {
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -73,21 +71,21 @@ class HelpScreenState extends State<HelpScreen> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 20.0),
+                  const SizedBox(height: 40.0),
                   SizedBox(
                     width: double.maxFinite,
                     child: GestureDetector(
                       onTap: () {
                         skipButtonPressed(true);
-                        GoRouter.of(context).pushReplacement(
-                          MyAppRouteConstants.homePage,
-                        );
                       },
-                      child: const Text(
-                        "Skip",
-                        textAlign: TextAlign.right,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
+                      child: const Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Text(
+                          "Skip",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -105,5 +103,27 @@ class HelpScreenState extends State<HelpScreen> {
   Future<void> skipButtonPressed(bool skipValue) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setBool("skip", skipValue);
+    navigateToHomePage();
+  }
+
+  Future<void> checkSkipStatus() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    bool skip = sp.getBool("skip") ?? false;
+    if (skip) {
+      navigateToHomePage();
+    } else {
+      _timer = Timer(const Duration(seconds: 5), navigateToHomePage);
+    }
+  }
+
+  void navigateToHomePage() {
+    if (mounted) {
+      // Check if the widget is still mounted before calling setState
+      setState(() {
+        GoRouter.of(context).pushReplacementNamed(
+          MyAppRouteConstants.homePage,
+        );
+      });
+    }
   }
 }
