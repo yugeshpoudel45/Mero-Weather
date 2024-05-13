@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   double lat = 0.0;
   double long = 0.0;
   String locationName = '';
-  String savedLocation = ''; //!Change this with Shared preferences later on
+  String savedLocation = ''; 
 
   @override
   void initState() {
@@ -216,11 +216,7 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          log(
-            "Latitude: $lat, Longitude: $long",
-          );
-          log("Location: $locationName");
-          // Navigator.pop(context);
+          _getCurrentLocation();
         },
         child: const Icon(Icons.gps_fixed_rounded),
       ),
