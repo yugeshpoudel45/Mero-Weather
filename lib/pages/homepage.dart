@@ -263,7 +263,7 @@ class _HomePageState extends State<HomePage> {
 
   void fetchWeatherDetails() {
     context.read<WeatherDetailsCubit>().onFetchWeatherDetails(
-          locationName.isEmpty ? 'Nepal' : locationName,
+          locationName.isEmpty ? 'Bhaktapur' : locationName,
         );
   }
 
