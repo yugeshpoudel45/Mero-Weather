@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:mero_weather/models/1.dart';
+import 'package:mero_weather/models/weather_model.dart';
 import 'package:mero_weather/repo/weather_details_repo.dart';
 
 part 'weather_details_state.dart';

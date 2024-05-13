@@ -7,7 +7,7 @@ ThemeData lightTheme = ThemeData(
   textTheme: myTextTheme,
   fontFamily: GoogleFonts.inter().fontFamily!,
   colorScheme: ColorScheme.fromSeed(
-    seedColor: Colors.red,
+    seedColor: Colors.blue,
     brightness: Brightness.light,
   ),
 );
