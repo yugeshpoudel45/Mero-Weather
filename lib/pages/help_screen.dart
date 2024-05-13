@@ -1,71 +1,93 @@
-import 'package:flutter/material.dart';
-import 'dart:async';
+// import 'package:flutter/material.dart';
+// import 'package:go_router/go_router.dart';
+// import 'package:mero_weather/config/app_local_assets.dart';
+// import 'package:mero_weather/routes/app_route_constant.dart';
 
-import 'package:mero_weather/pages/homepage.dart';
+// class HelpScreen extends StatefulWidget {
+//   const HelpScreen({super.key});
 
-class HelpScreen extends StatefulWidget {
-  const HelpScreen({super.key});
+//   @override
+//   HelpScreenState createState() => HelpScreenState();
+// }
 
-  @override
-  _HelpScreenState createState() => _HelpScreenState();
-}
+// class HelpScreenState extends State<HelpScreen> {
+//   // @override
+//   // void initState() {
+//   //   super.initState();
+//   //   Timer(const Duration(seconds: 5), () {
+//   //     GoRouter.of(context).pushNamed(
+//   //       MyAppRouteConstants.homePage,
+//   //     );
+//   //   });
+//   // }
 
-class _HelpScreenState extends State<HelpScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Timer(const Duration(seconds: 5), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                    'https://www.vhv.rs/dpng/d/427-4270068_gold-retro-decorative-frame-png-free-download-transparent.png'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'We show weather for you',
-                  style: TextStyle(
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 20.0),
-                ElevatedButton(
-                  onPressed: () {
-                    _skipButtonPressed();
-                  },
-                  child: const Text('Skip'),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _skipButtonPressed() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     Size mySize = MediaQuery.sizeOf(context);
+//     TextTheme myTextTheme = Theme.of(context).textTheme;
+//     return Scaffold(
+//       body: Stack(
+//         children: [
+//           Container(
+//             decoration: const BoxDecoration(
+//               image: DecorationImage(
+//                 image: AssetImage(AppAssets.frame2),
+//                 fit: BoxFit.fill,
+//               ),
+//             ),
+//           ),
+//           Center(
+//             child: Padding(
+//               padding: const EdgeInsets.all(40),
+//               child: Column(
+//                 mainAxisAlignment: MainAxisAlignment.center,
+//                 children: [
+//                   Image.asset(
+//                     AppAssets.onboard1,
+//                     height: mySize.height / 3,
+//                   ),
+//                   SizedBox(height: mySize.height / 20),
+//                   SizedBox(
+//                     width: double.maxFinite,
+//                     child: Text(
+//                       'Welcome to Mero Weather',
+//                       textAlign: TextAlign.center,
+//                       style: myTextTheme.headlineLarge!.copyWith(
+//                         fontWeight: FontWeight.bold,
+//                       ),
+//                     ),
+//                   ),
+//                   const SizedBox(
+//                     width: double.maxFinite,
+//                     child: Text(
+//                       'We show weather for you',
+//                       textAlign: TextAlign.center,
+//                     ),
+//                   ),
+//                   const SizedBox(height: 20.0),
+//                   SizedBox(
+//                     width: double.maxFinite,
+//                     child: GestureDetector(
+//                       onTap: () {
+//                         GoRouter.of(context).pushNamed(
+//                           MyAppRouteConstants.homePage,
+//                         );
+//                       },
+//                       child: const Text(
+//                         "Skip",
+//                         textAlign: TextAlign.right,
+//                         style: TextStyle(
+//                           fontWeight: FontWeight.bold,
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
