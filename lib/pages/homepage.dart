@@ -47,183 +47,183 @@ class _HomePageState extends State<HomePage> {
     ColorScheme myColorScheme = Theme.of(context).colorScheme;
     Size mySize = MediaQuery.sizeOf(context);
     TextTheme myTextTheme = Theme.of(context).textTheme;
-    return BlocBuilder<WeatherDetailsCubit, WeatherDetailsState>(
-      builder: (context, state) {
-        if (state is WeatherDetailsLoadingState) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (state is WeatherDetailsErrorState) {
-          return Center(
-            child: Text(state.errorMessage),
-          );
-        } else if (state is WeatherDetailsLoadedState) {
-          return Scaffold(
-              resizeToAvoidBottomInset: false,
-              body: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Color(0xFF87CEEB), Color(0xFF4682B4)],
-                  ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: BlocBuilder<WeatherDetailsCubit, WeatherDetailsState>(
+        builder: (context, state) {
+          if (state is WeatherDetailsLoadingState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is WeatherDetailsErrorState) {
+            return Center(
+              child: Text(state.errorMessage),
+            );
+          } else if (state is WeatherDetailsLoadedState) {
+            return Container(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xFF87CEEB), Color(0xFF4682B4)],
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      SizedBox(height: mySize.height / 32),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Location',
-                                style: myTextTheme.headlineSmall!.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    SizedBox(height: mySize.height / 32),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Location',
+                              style: myTextTheme.headlineSmall!.copyWith(
+                                fontWeight: FontWeight.bold,
                               ),
-                              Text(
-                                  "${state.weatherDetailsModel.location!.name},${state.weatherDetailsModel.location!.country!}"),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              IconButton(
-                                icon: const Icon(Icons.help),
-                                onPressed: () {
-                                  GoRouter.of(context).pushReplacementNamed(
-                                    MyAppRouteConstants.helpScreen,
-                                  );
-                                },
-                              ),
-                              IconButton(
-                                icon: const Icon(Icons.settings),
-                                onPressed: () {},
-                              ),
-                            ],
-                          ),
-                        ],
+                            ),
+                            Text(
+                                "${state.weatherDetailsModel.location!.name},${state.weatherDetailsModel.location!.country!}"),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.help),
+                              onPressed: () {
+                                GoRouter.of(context).pushReplacementNamed(
+                                  MyAppRouteConstants.helpScreen,
+                                );
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(Icons.settings),
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    CupertinoSearchTextField(
+                      placeholder: "Enter Location",
+                      autofocus: true,
+                      controller: _searchController,
+                      prefixInsets: const EdgeInsets.symmetric(
+                        horizontal: 8,
                       ),
-                      CupertinoSearchTextField(
-                        placeholder: "Enter Location",
-                        autofocus: true,
-                        controller: _searchController,
-                        prefixInsets: const EdgeInsets.symmetric(
-                          horizontal: 8,
+                      decoration: BoxDecoration(
+                        color: myColorScheme.onInverseSurface,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: Colors.transparent,
                         ),
-                        decoration: BoxDecoration(
-                          color: myColorScheme.onInverseSurface,
-                          borderRadius: BorderRadius.circular(12),
-                          border: Border.all(
-                            color: Colors.transparent,
-                          ),
-                        ),
-                        onSuffixTap: () {
-                          _searchController.clear();
+                      ),
+                      onSuffixTap: () {
+                        _searchController.clear();
+                      },
+                    ),
+                    SizedBox(height: mySize.height / 80),
+                    SizedBox(
+                      width: double.maxFinite,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _saveLocation(_searchController.text);
+                          setState(() {
+                            locationName = _searchController.text;
+                          });
+                          fetchWeatherDetails();
                         },
+                        child: Text(savedLocation.isEmpty ? 'Save' : 'Update'),
                       ),
-                      SizedBox(height: mySize.height / 80),
-                      SizedBox(
-                        width: double.maxFinite,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            _saveLocation(_searchController.text);
-                            setState(() {
-                              locationName = _searchController.text;
-                            });
-                            fetchWeatherDetails();
-                          },
-                          child:
-                              Text(savedLocation.isEmpty ? 'Save' : 'Update'),
-                        ),
-                      ),
-                      Icon(
-                        Icons.cloud,
-                        size: 100,
+                    ),
+                    Icon(
+                      Icons.cloud,
+                      size: 100,
+                      color: myColorScheme.onPrimary,
+                    ),
+                    Text(
+                      " ${state.weatherDetailsModel.current!.tempC}°",
+                      style: myTextTheme.displayLarge!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 96,
                         color: myColorScheme.onPrimary,
                       ),
-                      Text(
-                        " ${state.weatherDetailsModel.current!.tempC}°",
-                        style: myTextTheme.displayLarge!.copyWith(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 96,
-                          color: myColorScheme.onPrimary,
-                        ),
+                    ),
+                    Text(
+                      'CLOUDY',
+                      style: myTextTheme.titleLarge!.copyWith(
+                        color: myColorScheme.onPrimary,
                       ),
-                      Text(
-                        'CLOUDY',
-                        style: myTextTheme.titleLarge!.copyWith(
-                          color: myColorScheme.onPrimary,
-                        ),
+                    ),
+                    SizedBox(height: mySize.height / 40),
+                    Text(
+                      '7 - Day Forecast',
+                      style: myTextTheme.titleLarge!.copyWith(
+                        color: myColorScheme.onPrimary,
+                        fontFamily: GoogleFonts.balsamiqSans().fontFamily!,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(height: mySize.height / 40),
-                      Text(
-                        '7 - Day Forecast',
-                        style: myTextTheme.titleLarge!.copyWith(
-                          color: myColorScheme.onPrimary,
-                          fontFamily: GoogleFonts.balsamiqSans().fontFamily!,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                          padding: const EdgeInsets.all(4),
-                          itemCount: 6,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width: mySize.width / 4,
-                                  child: Text(
-                                    "Wednesday",
-                                    style: myTextTheme.titleMedium!.copyWith(
-                                      color: myColorScheme.onPrimary,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: mySize.width / 12),
-                                Icon(
-                                  Icons.cloud,
-                                  size: 32,
-                                  color: myColorScheme.onPrimary,
-                                ),
-                                SizedBox(width: mySize.width / 12),
-                                Text(
-                                  "25°",
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        padding: const EdgeInsets.all(4),
+                        itemCount: 6,
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: mySize.width / 4,
+                                child: Text(
+                                  "Wednesday",
                                   style: myTextTheme.titleMedium!.copyWith(
                                     color: myColorScheme.onPrimary,
                                   ),
                                 ),
-                              ],
-                            );
-                          },
-                        ),
+                              ),
+                              SizedBox(width: mySize.width / 12),
+                              Icon(
+                                Icons.cloud,
+                                size: 32,
+                                color: myColorScheme.onPrimary,
+                              ),
+                              SizedBox(width: mySize.width / 12),
+                              Text(
+                                "25°",
+                                style: myTextTheme.titleMedium!.copyWith(
+                                  color: myColorScheme.onPrimary,
+                                ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  log(
-                    "Latitude: $lat, Longitude: $long",
-                  );
-                  log("Location: $locationName");
-                  // Navigator.pop(context);
-                },
-                child: const Icon(Icons.gps_fixed_rounded),
-              ));
-        } else {
-          return const SizedBox();
-        }
-      },
+            );
+          } else {
+            return const SizedBox();
+          }
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          log(
+            "Latitude: $lat, Longitude: $long",
+          );
+          log("Location: $locationName");
+          // Navigator.pop(context);
+        },
+        child: const Icon(Icons.gps_fixed_rounded),
+      ),
     );
   }
 
