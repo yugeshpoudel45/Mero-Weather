@@ -26,7 +26,7 @@ dependencies:
   flutter_native_splash: ^2.3.7
 
 flutter_native_splash:
-  color: "#000000"
+  color: "#29B2DD"
   image: assets/logo.png
 
 dev_dependencies:

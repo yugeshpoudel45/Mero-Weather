@@ -10,6 +10,7 @@ class WeatherDetailsCubit extends Cubit<WeatherDetailsState> {
 
   final WeatherDetailsRepo weatherDetailsRepo;
 
+
   void onFetchWeatherDetails(String location) async {
     try {
       emit(WeatherDetailsLoadingState());
