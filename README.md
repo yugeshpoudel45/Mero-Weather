@@ -48,12 +48,12 @@ Welcome to our Weather App repository on GitHub! Our app is designed to keep you
 <img src="https://github.com/yugeshpoudel45/Mero_Weather/assets/104973762/7a065511-3986-481d-ada5-cfa1d5cfe4cf" width="24%" height="auto" >
 <img src="https://github.com/yugeshpoudel45/Mero_Weather/assets/104973762/f1904a8d-1fde-4575-bd73-6222247a7f25" width="24%" height="auto" >
 
-## Demo Video
-![1](https://github.com/yugeshpoudel45/Mero_Weather/assets/104973762/35fe25b1-1c43-4513-8f9c-ae45b09b869d)
+## 🔗Demo Video Link
+[Weather App Demo](https://drive.google.com/file/d/1Isy-itBo2Lpe7JnWCO6AmeW4u5clYnRJ/view?usp=drive_link)
 
 
 
 ## 🔗App Download Link
-[Mero Weather]()
+[Mero Weather](https://github.com/yugeshpoudel45/Mero_Weather/releases/download/v1.0.16/app-arm64-v8a-release.apk)
 
 
