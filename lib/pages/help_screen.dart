@@ -67,11 +67,11 @@ class HelpScreenState extends State<HelpScreen> {
                   const SizedBox(
                     width: double.maxFinite,
                     child: Text(
-                      'We show weather for you',
+                      "We show weather for you, keeping you informed and prepared for any conditions, wherever you are.",
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 40.0),
+                  const SizedBox(height: 20.0),
                   SizedBox(
                     width: double.maxFinite,
                     child: GestureDetector(
