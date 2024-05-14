@@ -1,5 +1,5 @@
 
-# Project Title
+# Mero Weather
 
 Welcome to our Weather App repository on GitHub! Our app is designed to keep you informed and prepared for any weather conditions. With real-time updates and comprehensive features, it's your go-to companion for staying ahead of the elements.
 
