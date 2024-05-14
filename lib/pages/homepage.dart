@@ -102,23 +102,8 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                     SizedBox(height: mySize.height / 40),
-                    CupertinoSearchTextField(
-                      placeholder: "Enter Location",
-                      // autofocus: true,
-                      controller: _searchController,
-                      prefixInsets: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: myColorScheme.onInverseSurface,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: Colors.transparent,
-                        ),
-                      ),
-                      onSuffixTap: () {
-                        _searchController.clear();
-                      },
+                    _SearchField(
+                      searchController: _searchController,
                     ),
                     SizedBox(height: mySize.height / 80),
                     SizedBox(
@@ -154,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                     SizedBox(height: mySize.height / 40),
                     Text(
-                      '7 - Day Forecast',
+                      '6 - Day Forecast',
                       style: myTextTheme.titleLarge!.copyWith(
                         color: myColorScheme.onPrimary,
                         fontFamily: GoogleFonts.balsamiqSans().fontFamily!,
@@ -279,5 +264,37 @@ class _HomePageState extends State<HomePage> {
         savedLocation = location;
       });
     }
+  }
+}
+
+//-------------------------Extracting the widgets-----------------------------------
+class _SearchField extends StatelessWidget {
+  const _SearchField({
+    required TextEditingController searchController,
+  }) : _searchController = searchController;
+
+  final TextEditingController _searchController;
+
+  @override
+  Widget build(BuildContext context) {
+    ColorScheme myColorScheme = Theme.of(context).colorScheme;
+    return CupertinoSearchTextField(
+      placeholder: "Enter Location",
+      // autofocus: true,
+      controller: _searchController,
+      prefixInsets: const EdgeInsets.symmetric(
+        horizontal: 8,
+      ),
+      decoration: BoxDecoration(
+        color: myColorScheme.onInverseSurface,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: Colors.transparent,
+        ),
+      ),
+      onSuffixTap: () {
+        _searchController.clear();
+      },
+    );
   }
 }
