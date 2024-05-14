@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     Text(
-                      'CLOUDY',
+                      state.weatherDetailsModel.current!.condition!.text!,
                       style: myTextTheme.titleLarge!.copyWith(
                         color: myColorScheme.onPrimary,
                       ),
